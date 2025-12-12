@@ -28,9 +28,9 @@ FROM base AS dependencies
 # Don't set NODE_ENV=production here - we need devDependencies for building
 ENV NODE_ENV=development
 
-COPY package.json ./
+COPY package.json package-lock.json ./
 
-RUN npm install
+RUN npm ci
 
 # ============================================
 # Stage 3: Build - Build the application
@@ -53,8 +53,19 @@ ENV NODE_ENV=production
 
 WORKDIR /opt/app
 
-# Copy entire built application from build stage
-COPY --from=build /opt/app ./
+# Copy package files
+COPY --from=build /opt/app/package.json /opt/app/package-lock.json ./
+
+# Copy built application (using compiled JS from dist/)
+COPY --from=build /opt/app/dist ./dist
+COPY --from=build /opt/app/dist/build ./build
+COPY --from=build /opt/app/dist/config ./config
+COPY --from=build /opt/app/dist/src ./src
+COPY --from=build /opt/app/public ./public
+COPY --from=build /opt/app/database ./database
+
+# Install production dependencies only
+RUN npm ci --omit=dev
 
 # Create uploads directory
 RUN mkdir -p ./public/uploads
