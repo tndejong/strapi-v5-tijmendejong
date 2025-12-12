@@ -62,7 +62,9 @@ COPY --from=build /opt/app/dist/build ./build
 COPY --from=build /opt/app/dist/config ./config
 COPY --from=build /opt/app/dist/src ./src
 COPY --from=build /opt/app/public ./public
-COPY --from=build /opt/app/database ./database
+
+# Create database directory for migrations (may not exist in repo if empty)
+RUN mkdir -p ./database/migrations
 
 # Install production dependencies only
 RUN npm ci --omit=dev
