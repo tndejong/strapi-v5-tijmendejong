@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_pageparts_tech_stack_components",
+  "info": {
+    "displayName": "TechStack List - Component"
+  },
+  "options": {},
+  "attributes": {
+    "tech_stacks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::tech-stack.tech-stack"
+    }
+  },
+  "config": {}
+}

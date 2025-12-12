@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "tech_stack_pages",
+  "info": {
+    "singularName": "tech-stack-page",
+    "pluralName": "tech-stack-pages",
+    "displayName": "Tech Stack - Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "TechStackList": {
+      "type": "component",
+      "component": "pageparts.tech-stack-component",
+      "repeatable": true
+    }
+  }
+}

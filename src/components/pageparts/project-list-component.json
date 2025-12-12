@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_pageparts_project_list_components",
+  "info": {
+    "displayName": "Project List - Component",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "projects": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::project.project"
+    }
+  },
+  "config": {}
+}

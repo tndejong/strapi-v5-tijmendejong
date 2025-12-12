@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tech_stack_categories",
+  "info": {
+    "singularName": "tech-stack-category",
+    "pluralName": "tech-stack-categories",
+    "displayName": "Tech Stack Category"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "tech_stacks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::tech-stack.tech-stack",
+      "mappedBy": "tech_stack_category"
+    }
+  }
+}

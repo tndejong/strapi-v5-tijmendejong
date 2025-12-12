@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_pageparts_job_list_components",
+  "info": {
+    "displayName": "Job List - Component",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "jobs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::job.job"
+    }
+  },
+  "config": {}
+}

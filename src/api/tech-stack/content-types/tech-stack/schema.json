@@ -1,0 +1,52 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tech_stacks",
+  "info": {
+    "singularName": "tech-stack",
+    "pluralName": "tech-stacks",
+    "displayName": "Tech Stack"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "Logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Color": {
+      "type": "enumeration",
+      "enum": [
+        "Blue",
+        "Red",
+        "Yellow",
+        "Orange"
+      ]
+    },
+    "tech_stack_category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::tech-stack-category.tech-stack-category",
+      "inversedBy": "tech_stacks"
+    },
+    "jobs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::job.job",
+      "inversedBy": "tech_stacks"
+    }
+  }
+}
