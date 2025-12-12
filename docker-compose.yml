@@ -1,0 +1,60 @@
+services:
+  strapi:
+    container_name: strapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: strapiDB
+      DATABASE_PORT: 5432
+      DATABASE_NAME: strapi
+      DATABASE_USERNAME: strapi
+      DATABASE_PASSWORD: password
+      JWT_SECRET: toBeModified
+      ADMIN_JWT_SECRET: toBeModified
+      APP_KEYS: toBeModified1,toBeModified2
+      API_TOKEN_SALT: toBeModified
+      TRANSFER_TOKEN_SALT: toBeModified
+      NODE_ENV: production
+    volumes:
+      - strapi-uploads:/opt/app/public/uploads
+    ports:
+      - "1337:1337"
+    networks:
+      - strapi-network
+    depends_on:
+      strapiDB:
+        condition: service_healthy
+
+  strapiDB:
+    container_name: strapiDB
+    platform: linux/amd64
+    restart: unless-stopped
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME:-strapi}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-password}
+      POSTGRES_DB: ${DATABASE_NAME:-strapi}
+    volumes:
+      - strapi-data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    networks:
+      - strapi-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME:-strapi} -d ${DATABASE_NAME:-strapi}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  strapi-data:
+  strapi-uploads:
+
+networks:
+  strapi-network:
+    name: strapi-network
+    driver: bridge
+

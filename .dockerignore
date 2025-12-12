@@ -1,0 +1,55 @@
+# Dependencies
+node_modules
+package-lock.json
+yarn.lock
+
+# Build output
+dist
+build
+.cache
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Database
+.tmp
+data
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test
+coverage
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Documentation
+README.md
+LICENSE
+*.md
+
+# Public uploads (optional - remove if you want to include uploads in build)
+public/uploads
+

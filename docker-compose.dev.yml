@@ -1,0 +1,61 @@
+services:
+  strapi:
+    container_name: strapi-dev
+    image: node:22-alpine
+    working_dir: /opt/app
+    command: sh -c "npm install && npm run develop"
+    restart: unless-stopped
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: strapiDB
+      DATABASE_PORT: 5432
+      DATABASE_NAME: strapi
+      DATABASE_USERNAME: strapi
+      DATABASE_PASSWORD: password
+      JWT_SECRET: toBeModified
+      ADMIN_JWT_SECRET: toBeModified
+      APP_KEYS: toBeModified1,toBeModified2
+      API_TOKEN_SALT: toBeModified
+      TRANSFER_TOKEN_SALT: toBeModified
+      NODE_ENV: development
+    volumes:
+      - ./:/opt/app
+      - strapi-node-modules:/opt/app/node_modules
+    ports:
+      - "1337:1337"
+    networks:
+      - strapi-network
+    depends_on:
+      strapiDB:
+        condition: service_healthy
+
+  strapiDB:
+    container_name: strapiDB
+    platform: linux/amd64
+    restart: unless-stopped
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: strapi
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: strapi
+    volumes:
+      - strapi-data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    networks:
+      - strapi-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U strapi -d strapi"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  strapi-data:
+  strapi-node-modules:
+
+networks:
+  strapi-network:
+    name: strapi-network
+    driver: bridge
+
