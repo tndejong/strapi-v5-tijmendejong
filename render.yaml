@@ -23,6 +23,8 @@ services:
         fromDatabase:
           name: strapi-db
           property: connectionString
+      - key: DATABASE_SSL
+        value: "true"
       - key: APP_KEYS
         generateValue: true
       - key: API_TOKEN_SALT
