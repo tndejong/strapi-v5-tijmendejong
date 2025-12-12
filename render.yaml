@@ -36,7 +36,7 @@ services:
 
 databases:
   - name: strapi-db
-    plan: starter
+    plan: basic
     databaseName: strapi
     user: strapi
     region: frankfurt
