@@ -4,11 +4,6 @@ export default ({ env }) => ({
   app: {
     keys: env.array('APP_KEYS'),
   },
-  url: env('PUBLIC_URL', ''),
-  transfer: {
-    remote: {
-      enabled: true,
-    },
-  },
+  url: env('PUBLIC_URL', '')
 });
 
